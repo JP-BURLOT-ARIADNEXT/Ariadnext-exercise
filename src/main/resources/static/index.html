@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Demo</title>
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width" />
+<base href="/" />
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<style type="text/css">
+img#user_pic {
+	margin: 5px;
+	border: 1px solid grey;
+}
+
+span#user_name {
+	font-weight: bold;
+}
+
+.box {
+	border: 1px solid lightgray;
+}
+.authenticated {
+	display: none;
+}
+label.custom-file-label{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    display: inline-block;
+}
+.hidden{
+	display:none;
+}
+</style>
+
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/webjars/js-cookie/js.cookie.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+</head>
+<body>
+	<div
+		class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+		<h1 class="display-4">Vérification d'identité</h1>
+		<p class="lead">Afin de vérifier votre identité, nous avons besoin
+			que vous vous connectiez à Twitter et que vous nous transmettiez une
+			pièce d'identité.</p>
+	</div>
+
+	<div class="container">
+
+		<div class="alert alert-danger hidden" role="alert" id="errorContainer">
+		</div>
+		<div class="alert alert-success hidden" role="alert" id="msgContainer">
+		</div>
+		<div class="card-deck mb-3 text-center">
+			<div class="card mb-4 box-shadow" id="twitter">
+				<div class="card-header">
+					<h4 class="my-0 font-weight-normal">Connexion à un réseau
+						social</h4>
+				</div>
+				<div class="card-body unauthenticated">
+			  		<form action="/signin/twitter" id="twitterSignin" method="POST" style="margin-top:30px;margin-bottom:20px">
+						<button type="submit" class="btn btn-lg btn-block btn-primary" id="twitterConnection">Connexion à Twitter</button>
+	        		</form>
+				</div>
+				<div class="card-body authenticated">
+			  		<p class="lead">
+			  		Utilisateur connecté :
+			  		</p>
+			  		<div>
+			  			<span id="user_name"></span><img id="user_pic" alt="profile pic" />
+			  		</div>
+					  <div>
+					    <button onClick="logout()" class="btn btn-block btn-outline-primary">Déconnexion</button>
+					  </div>
+				</div>
+			</div>
+			<div class="card mb-4 box-shadow" id="idCheck">
+				<div class="card-header">
+					<h4 class="my-0 font-weight-normal">Vérifier une pièce
+						d'identité</h4>
+				</div>
+				<div class="card-body">
+					<form action="/idCheck/analysis" id="imgAnalysisForm" method="POST"
+						enctype="multipart/form-data">
+						<div class="input-group mb-3">
+							<div class="custom-file">
+								<input id="imgUploadFront" type="file"
+									class="custom-file-input " name="front" /> <label
+									class="custom-file-label text-left" for="imgUploadFront">Recto
+									pièce d'identité</label>
+							</div>
+						</div>
+						<div class="input-group mb-3">
+							<div class="custom-file">
+								<input id="imgUploadBack" type="file" class="custom-file-input "
+									name="back" /> <label class="custom-file-label text-left"
+									for="imgUploadFront">Verso pièce d'identité</label>
+							</div>
+						</div>
+						<button type="button" class="btn btn-primary " id="sendImages">
+						  <span class="loading spinner-border spinner-border-lg" role="status" aria-hidden="true" style="display:none;"></span>
+						  <span class="not-loading" >Vérifier la pièce d'identité</span>
+						  <span class="loading hidden" >Veuillez patienter</span>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
